@@ -30,11 +30,14 @@ importers:
 
   packages/common:
     specifiers:
+      '@babel/parser': ^7.18.11
       '@babel/types': ^7.18.10
       '@vue/compiler-sfc': ^3.2.37
     dependencies:
       '@babel/types': 7.18.10
       '@vue/compiler-sfc': 3.2.37
+    devDependencies:
+      '@babel/parser': 7.18.11
 
   packages/define-options:
     specifiers:

@@ -1,6 +1,6 @@
 import { MagicString } from 'vue/compiler-sfc'
-import { addToScript, parseSFC } from './vue'
-import type { SFCCompiled } from './vue'
+import { addToScript, analyzeComponent, parseSFC } from './vue'
+import type { ComponentInfo, SFCCompiled } from './vue'
 
 export interface TransformContext {
   code: string
@@ -8,6 +8,8 @@ export interface TransformContext {
 
   s: MagicString
   sfc: SFCCompiled
+
+  component: ComponentInfo
 
   scriptCode: {
     prepend: string
@@ -18,6 +20,7 @@ export interface TransformContext {
 export const initContext = (code: string, id: string) => {
   let s: MagicString | undefined
   let sfc: SFCCompiled | undefined
+  let component: ComponentInfo | undefined
 
   const ctx: TransformContext = {
     code,
@@ -26,6 +29,10 @@ export const initContext = (code: string, id: string) => {
     scriptCode: {
       prepend: '',
       append: '',
+    },
+
+    get component() {
+      return component || (component = analyzeComponent(ctx))
     },
 
     get s() {

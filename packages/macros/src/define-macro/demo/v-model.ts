@@ -1,8 +1,13 @@
 import { isStringLiteral } from '@babel/types'
-import { inferRuntimeType } from './utils'
-import type { CustomMacro } from './impl'
+import { computed, getCurrentInstance } from 'vue'
+import { inferRuntimeType } from '../utils'
+import { defineMacro } from '..'
 
-export const defineVModel: CustomMacro = {
+declare global {
+  const defineVModel: typeof defineVModelRuntime
+}
+
+export const defineVModel = defineMacro({
   name: 'defineVModel',
   processor: ({ component, args, typeArgs }) => {
     if (!isStringLiteral(args[0])) throw new Error('prop name must be a string')
@@ -19,4 +24,13 @@ export const defineVModel: CustomMacro = {
 
     return component
   },
+  runtime: ['./v-model.ts', 'defineVModelRuntime'],
+})
+
+export const defineVModelRuntime = <T>(propKey: string) => {
+  const { props, emit } = getCurrentInstance()!
+  return computed<T>({
+    get: () => props[propKey] as T,
+    set: (value) => emit(`update:${propKey}`, value),
+  })
 }

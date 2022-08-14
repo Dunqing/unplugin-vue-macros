@@ -121,6 +121,16 @@ importers:
       vite: 3.0.7
       vue: 3.2.37
 
+  packages/volar:
+    specifiers:
+      '@esbuild-kit/cjs-loader': ^2.3.3
+      '@volar/vue-language-core': ^0.40.1
+      vue-tsc: ^0.40.1
+    devDependencies:
+      '@esbuild-kit/cjs-loader': 2.3.3
+      '@volar/vue-language-core': 0.40.1
+      vue-tsc: 0.40.1
+
   playground:
     specifiers:
       '@vitejs/plugin-vue': ^3.0.3
@@ -4083,6 +4093,16 @@ packages:
       semver: 7.3.7
     transitivePeerDependencies:
       - supports-color
+    dev: true
+
+  /vue-tsc/0.40.1:
+    resolution: {integrity: sha512-Z+3rlp/6TrtKvLuaFYwBn03zrdinMR6lBb3mWBJtDA+KwlRu+I4eMoqC1qT9D7i/29u0Bw58dH7ErjMpNLN9bQ==}
+    hasBin: true
+    peerDependencies:
+      typescript: '*'
+    dependencies:
+      '@volar/vue-language-core': 0.40.1
+      '@volar/vue-typescript': 0.40.1
     dev: true
 
   /vue-tsc/0.40.1_typescript@4.7.4:
